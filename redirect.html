@@ -103,13 +103,13 @@
             
             // IDs das perguntas do Google Forms (você vai precisar atualizar esses IDs)
             // Formato: entry.XXXXXXXX onde XXXXXXXX é o ID da pergunta
-            const respostas = {
-                r1: params.get('entry.PERGUNTA1_ID') || '',
-                r2: params.get('entry.PERGUNTA2_ID') || '',
-                r3: params.get('entry.PERGUNTA3_ID') || '',
-                r4: params.get('entry.PERGUNTA4_ID') || '',
-                r5: params.get('entry.PERGUNTA5_ID') || ''
-            };
+           const respostas = {
+    r1: params.get('entry.2066304879') || '',
+    r2: params.get('entry.1745018755') || '',
+    r3: params.get('entry.756137467') || '',
+    r4: params.get('entry.410420307') || '',
+    r5: params.get('entry.549084859') || ''
+};
             
             return respostas;
         }
@@ -117,7 +117,7 @@
         // Monta a URL de destino com as respostas
         function montarURLDeResultado(respostas) {
             // IMPORTANTE: Substitua pela sua URL real do GitHub Pages
-            const baseURL = 'https://SEU-USUARIO.github.io/radar-de-autoridade/index.html';
+            const baseURL = 'https://vivianeazul-bot.github.io/radar-de-autoridade/index.html';
             
             const params = new URLSearchParams({
                 r1: respostas.r1,
