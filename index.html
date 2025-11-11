@@ -179,7 +179,7 @@
         <div class="loading-content">
             <div class="spinner"></div>
             <h3 style="color: #2d3748;">Processando diagnóstico...</h3>
-            <p style="color: #718096; margin-top: 10px;">Enviando email</p>
+            <p style="color: #718096; margin-top: 10px;">Enviando email e salvando dados</p>
         </div>
     </div>
     
@@ -309,6 +309,25 @@
         document.getElementById('nome').addEventListener('input', verificar);
         document.getElementById('email').addEventListener('input', verificar);
         
+        // FUNÇÃO PARA ENVIAR PARA GOOGLE SHEETS
+        async function enviarParaSheets(dados) {
+            try {
+                const response = await fetch(CONFIG.sheetsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dados)
+                });
+                console.log('Dados enviados para Google Sheets!');
+                return true;
+            } catch (erro) {
+                console.error('Erro ao enviar para Sheets:', erro);
+                return false;
+            }
+        }
+        
         document.getElementById('submitBtn').addEventListener('click', async function() {
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -318,7 +337,23 @@
             
             document.getElementById('loadingOverlay').style.display = 'flex';
             
+            // Preparar dados para enviar
+            const dadosCompletos = {
+                timestamp: new Date().toLocaleString('pt-BR'),
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                resposta1: respostas[1],
+                resposta2: respostas[2],
+                resposta3: respostas[3],
+                resposta4: respostas[4],
+                resposta5: respostas[5],
+                pontuacao: pontos,
+                perfil: r.perfil
+            };
+            
             try {
+                // Enviar email
                 await emailjs.send(CONFIG.serviceId, CONFIG.templateId, {
                     nome: nome,
                     email: email,
@@ -329,6 +364,10 @@
                     recomendacoes: r.recEmail
                 });
                 console.log('Email enviado!');
+                
+                // Enviar para Google Sheets
+                await enviarParaSheets(dadosCompletos);
+                
             } catch (e) {
                 console.error('Erro:', e);
             }
