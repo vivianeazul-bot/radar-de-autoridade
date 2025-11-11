@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processando seu diagnóstico...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .loading-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 30px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            animation: progress 2s ease-out forwards;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <h1>🎯 Processando seu diagnóstico...</h1>
+        <p>Calculando sua pontuação e preparando seu resultado personalizado.</p>
+        <p style="margin-top: 10px; font-size: 14px; color: #718096;">Você será redirecionado em instantes.</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <script>
+        // Captura os parâmetros da URL do Google Forms
+        function capturarRespostasDoForms() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // IDs das perguntas do Google Forms (você vai precisar atualizar esses IDs)
+            // Formato: entry.XXXXXXXX onde XXXXXXXX é o ID da pergunta
+            const respostas = {
+                r1: params.get('entry.PERGUNTA1_ID') || '',
+                r2: params.get('entry.PERGUNTA2_ID') || '',
+                r3: params.get('entry.PERGUNTA3_ID') || '',
+                r4: params.get('entry.PERGUNTA4_ID') || '',
+                r5: params.get('entry.PERGUNTA5_ID') || ''
+            };
+            
+            return respostas;
+        }
+        
+        // Monta a URL de destino com as respostas
+        function montarURLDeResultado(respostas) {
+            // IMPORTANTE: Substitua pela sua URL real do GitHub Pages
+            const baseURL = 'https://SEU-USUARIO.github.io/radar-de-autoridade/index.html';
+            
+            const params = new URLSearchParams({
+                r1: respostas.r1,
+                r2: respostas.r2,
+                r3: respostas.r3,
+                r4: respostas.r4,
+                r5: respostas.r5
+            });
+            
+            return `${baseURL}?${params.toString()}`;
+        }
+        
+        // Executa o redirecionamento
+        function redirecionar() {
+            const respostas = capturarRespostasDoForms();
+            const urlDestino = montarURLDeResultado(respostas);
+            
+            console.log('Respostas capturadas:', respostas);
+            console.log('Redirecionando para:', urlDestino);
+            
+            // Aguarda 2 segundos para dar tempo da animação e depois redireciona
+            setTimeout(() => {
+                window.location.href = urlDestino;
+            }, 2000);
+        }
+        
+        // Executa quando a página carregar
+        window.addEventListener('load', redirecionar);
+    </script>
+</body>
+</html>
