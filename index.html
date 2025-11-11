@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Diagnóstico de Comunicação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            position: relative;
+        }
+        
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        
+        .perfil-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin: 20px 0;
+        }
+        
+        .eco-tatico { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .sinal-fragmentado { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .narrador-emergente { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .voz-referencia { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        
+        .resultado {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 15px;
+            border-left: 5px solid;
+        }
+        
+        .resultado h2 {
+            color: #2d3748;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .resultado p {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .recomendacoes {
+            margin-top: 20px;
+        }
+        
+        .recomendacoes h3 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .recomendacoes ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recomendacoes li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+        
+        .recomendacoes li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .email-notice {
+            background: #edf2f7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            color: #2d3748;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .score-circle {
+                width: 120px;
+                height: 120px;
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Seu Diagnóstico de Comunicação</h1>
+        </div>
+        
+        <div style="text-align: center;">
+            <div class="score-circle" id="scoreCircle">
+                <span id="pontuacao">--</span>
+            </div>
+            
+            <div class="perfil-badge" id="perfilBadge">
+                Calculando...
+            </div>
+        </div>
+        
+        <div class="resultado" id="resultado">
+            <h2 id="tituloResultado">Processando suas respostas...</h2>
+            <div id="conteudoResultado">
+                <p>Aguarde um momento...</p>
+            </div>
+        </div>
+        
+        <div class="email-notice">
+            📧 <strong>Um relatório completo foi enviado para seu email!</strong><br>
+            Verifique sua caixa de entrada (e spam também).
+        </div>
+        
+        <!-- PERSONALIZE AQUI SEU CTA -->
+        <!-- <a href="https://seu-site.com" class="cta-button">Agende uma Consultoria Gratuita</a> -->
+    </div>
+
+    <script>
+        // Função para pegar parâmetros da URL
+        function getParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                r1: params.get('r1') || '',
+                r2: params.get('r2') || '',
+                r3: params.get('r3') || '',
+                r4: params.get('r4') || '',
+                r5: params.get('r5') || ''
+            };
+        }
+        
+        // Função de cálculo de pontos
+        function calcularPontos(resposta, numPergunta) {
+            if (!resposta) return 0;
+            const resp = resposta.toLowerCase();
+            
+            if (numPergunta === 1) {
+                if (resp.includes('acompanha campanhas') || resp.includes('a)')) return 1;
+                if (resp.includes('temas variados') || resp.includes('b)')) return 2;
+                if (resp.includes('padrão e intenção') || resp.includes('c)')) return 3;
+                if (resp.includes('constância e estratégia') || resp.includes('d)')) return 4;
+            }
+            
+            if (numPergunta === 2) {
+                if (resp.includes('só quando tem campanha')) return 1;
+                if (resp.includes('1 vez por mês')) return 2;
+                if (resp.includes('1 vez por semana')) return 3;
+                if (resp.includes('2+') || resp.includes('consistência')) return 4;
+            }
+            
+            if (numPergunta === 3) {
+                if (resp.includes('quase inexistente')) return 1;
+                if (resp.includes('participação pontual')) return 2;
+                if (resp.includes('presença crescente')) return 3;
+                if (resp.includes('vozes ativas') || resp.includes('protagonismo')) return 4;
+            }
+            
+            if (numPergunta === 4) {
+                if (resp.includes('cada área fala')) return 1;
+                if (resp.includes('tentativa de alinhamento')) return 2;
+                if (resp.includes('discurso comum')) return 3;
+                if (resp.includes('narrativa unificada')) return 4;
+            }
+            
+            if (numPergunta === 5) {
+                if (resp.includes('parecidos com') || resp.includes('concorrente')) return 1;
+                if (resp.includes('esforço de diferenciação')) return 2;
+                if (resp.includes('originalidade em partes')) return 3;
+                if (resp.includes('percepção de valor') || resp.includes('antes da venda')) return 4;
+            }
+            
+            return 0;
+        }
+        
+        // Processa o diagnóstico
+        function processarDiagnostico() {
+            const respostas = getParams();
+            
+            // Calcula pontuação
+            let pontuacao = 0;
+            pontuacao += calcularPontos(respostas.r1, 1);
+            pontuacao += calcularPontos(respostas.r2, 2);
+            pontuacao += calcularPontos(respostas.r3, 3);
+            pontuacao += calcularPontos(respostas.r4, 4);
+            pontuacao += calcularPontos(respostas.r5, 5);
+            
+            // Define perfil
+            let perfil, corPerfil, titulo, descricao, recomendacoes;
+            
+            if (pontuacao >= 5 && pontuacao <= 7) {
+                perfil = "Eco Tático";
+                corPerfil = "eco-tatico";
+                titulo = "Eco Tático - Estágio Inicial";
+                descricao = "Você está no estágio inicial da jornada de comunicação estratégica. Sua narrativa ainda está muito conectada a campanhas pontuais e falta uma linha editorial clara.";
+                recomendacoes = [
+                    "Defina 3-5 pilares de conteúdo para sua comunicação",
+                    "Estabeleça uma frequência mínima de publicação semanal",
+                    "Crie um calendário editorial básico",
+                    "Comece a construir uma voz de marca única"
+                ];
+            } else if (pontuacao >= 8 && pontuacao <= 11) {
+                perfil = "Sinal Fragmentado";
+                corPerfil = "sinal-fragmentado";
+                titulo = "Sinal Fragmentado - Em Desenvolvimento";
+                descricao = "Você já produz conteúdo com alguma regularidade, mas ainda falta coesão e estratégia. Há esforço de comunicação, porém sem uma narrativa clara que una todas as frentes.";
+                recomendacoes = [
+                    "Unifique o discurso entre todas as áreas",
+                    "Engaje lideranças na comunicação estratégica",
+                    "Estruture uma linha editorial consistente",
+                    "Fortaleça sua diferenciação no mercado"
+                ];
+            } else if (pontuacao >= 12 && pontuacao <= 15) {
+                perfil = "Narrador Emergente";
+                corPerfil = "narrador-emergente";
+                titulo = "Narrador Emergente - Nível Avançado";
+                descricao = "Parabéns! Você já possui uma comunicação estruturada e estratégica. Sua narrativa começa a ter consistência e diferenciação, criando autoridade no mercado.";
+                recomendacoes = [
+                    "Amplie a presença das lideranças como protagonistas",
+                    "Fortaleça os diferenciais competitivos na narrativa",
+                    "Expanda a narrativa unificada para todos os canais",
+                    "Mensure o impacto da comunicação no negócio"
+                ];
+            } else if (pontuacao >= 16 && pontuacao <= 20) {
+                perfil = "Voz de Referência";
+                corPerfil = "voz-referencia";
+                titulo = "Voz de Referência - Excelência Editorial";
+                descricao = "Excelente! Você atingiu o nível máximo de maturidade editorial. Sua comunicação é estratégica, consistente e posiciona sua marca como autoridade. A percepção de valor acontece antes da venda.";
+                recomendacoes = [
+                    "Mantenha a consistência e evolua constantemente",
+                    "Explore novos formatos e canais estratégicos",
+                    "Monitore KPIs de reputação e autoridade",
+                    "Torne-se referência e líder de mercado"
+                ];
+            } else {
+                perfil = "Aguardando Revisão";
+                corPerfil = "eco-tatico";
+                titulo = "Processando...";
+                descricao = "Não conseguimos calcular seu resultado. Por favor, verifique o email enviado ou entre em contato.";
+                recomendacoes = [];
+            }
+            
+            // Atualiza a página
+            document.getElementById('pontuacao').textContent = pontuacao;
+            document.getElementById('scoreCircle').style.background = getGradient(corPerfil);
+            document.getElementById('perfilBadge').textContent = perfil;
+            document.getElementById('perfilBadge').className = 'perfil-badge ' + corPerfil;
+            document.getElementById('resultado').style.borderLeftColor = getBorderColor(corPerfil);
+            document.getElementById('tituloResultado').textContent = titulo;
+            
+            let conteudoHTML = '<p>' + descricao + '</p>';
+            
+            if (recomendacoes.length > 0) {
+                conteudoHTML += '<div class="recomendacoes"><h3>🎯 Recomendações Estratégicas:</h3><ul>';
+                recomendacoes.forEach(rec => {
+                    conteudoHTML += '<li>' + rec + '</li>';
+                });
+                conteudoHTML += '</ul></div>';
+            }
+            
+            document.getElementById('conteudoResultado').innerHTML = conteudoHTML;
+        }
+        
+        function getGradient(perfil) {
+            const gradients = {
+                'eco-tatico': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'sinal-fragmentado': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'narrador-emergente': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'voz-referencia': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+            };
+            return gradients[perfil] || gradients['eco-tatico'];
+        }
+        
+        function getBorderColor(perfil) {
+            const colors = {
+                'eco-tatico': '#f5576c',
+                'sinal-fragmentado': '#00f2fe',
+                'narrador-emergente': '#38f9d7',
+                'voz-referencia': '#fee140'
+            };
+            return colors[perfil] || colors['eco-tatico'];
+        }
+        
+        // Executa ao carregar
+        window.addEventListener('load', processarDiagnostico);
+    </script>
+</body>
+</html>
