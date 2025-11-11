@@ -32,14 +32,8 @@
         }
         
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .header {
@@ -49,8 +43,92 @@
         
         .header h1 {
             color: #2d3748;
-            font-size: 32px;
+            font-size: 28px;
             margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #718096;
+            font-size: 16px;
+        }
+        
+        /* Quiz */
+        .quiz-section {
+            display: block;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question h3 {
+            color: #2d3748;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            color: #4a5568;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .calculate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Resultado */
+        .resultado-section {
+            display: none;
+            text-align: center;
         }
         
         .score-circle {
@@ -100,6 +178,7 @@
             background: #f7fafc;
             border-radius: 15px;
             border-left: 5px solid;
+            text-align: left;
         }
         
         .resultado h2 {
@@ -156,141 +235,148 @@
             color: #2d3748;
         }
         
-        .cta-button {
+        .back-btn {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #718096;
             color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 20px;
-            transition: transform 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            cursor: pointer;
+            border: none;
         }
         
         @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-            
-            .header h1 {
-                font-size: 24px;
-            }
-            
-            .score-circle {
-                width: 120px;
-                height: 120px;
-                font-size: 36px;
-            }
+            .container { padding: 25px; }
+            .header h1 { font-size: 22px; }
+            .score-circle { width: 120px; height: 120px; font-size: 36px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Seu Diagnóstico de Comunicação</h1>
+            <h1>🎯 Descubra Seu Perfil de Comunicação</h1>
+            <p>Responda as 5 perguntas abaixo para ver seu diagnóstico completo</p>
         </div>
         
-        <div style="text-align: center;">
+        <!-- QUIZ SECTION -->
+        <div class="quiz-section" id="quizSection">
+            <div class="question">
+                <h3>1. Seu conteúdo hoje:</h3>
+                <div class="options">
+                    <div class="option" data-q="1" data-p="1">Acompanha campanhas de venda e só.</div>
+                    <div class="option" data-q="1" data-p="2">Traz temas variados, mas sem uma linha clara.</div>
+                    <div class="option" data-q="1" data-p="3">Começa a ter padrão e intenção.</div>
+                    <div class="option" data-q="1" data-p="4">Posiciona com constância e estratégia.</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>2. Frequência de conteúdo relevante:</h3>
+                <div class="options">
+                    <div class="option" data-q="2" data-p="1">Só quando tem campanha.</div>
+                    <div class="option" data-q="2" data-p="2">1 vez por mês.</div>
+                    <div class="option" data-q="2" data-p="3">1 vez por semana.</div>
+                    <div class="option" data-q="2" data-p="4">2+ vezes por semana com consistência.</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>3. Papel das lideranças na comunicação:</h3>
+                <div class="options">
+                    <div class="option" data-q="3" data-p="1">Quase inexistente.</div>
+                    <div class="option" data-q="3" data-p="2">Participação pontual.</div>
+                    <div class="option" data-q="3" data-p="3">Presença crescente com autoridade.</div>
+                    <div class="option" data-q="3" data-p="4">Vozes ativas, com protagonismo estratégico.</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>4. Alinhamento entre áreas:</h3>
+                <div class="options">
+                    <div class="option" data-q="4" data-p="1">Cada área fala de um jeito.</div>
+                    <div class="option" data-q="4" data-p="2">Há tentativa de alinhamento, mas não é claro.</div>
+                    <div class="option" data-q="4" data-p="3">Temos um discurso comum em alguns canais.</div>
+                    <div class="option" data-q="4" data-p="4">Narrativa unificada entre áreas estratégicas.</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>5. Diferenciação da narrativa:</h3>
+                <div class="options">
+                    <div class="option" data-q="5" data-p="1">Somos parecidos com qualquer concorrente.</div>
+                    <div class="option" data-q="5" data-p="2">Há esforço de diferenciação, mas pouco percebido.</div>
+                    <div class="option" data-q="5" data-p="3">Nosso discurso tem originalidade em partes.</div>
+                    <div class="option" data-q="5" data-p="4">A percepção de valor já acontece antes da venda.</div>
+                </div>
+            </div>
+            
+            <button class="calculate-btn" id="calcularBtn" disabled>Calcular Meu Diagnóstico</button>
+        </div>
+        
+        <!-- RESULTADO SECTION -->
+        <div class="resultado-section" id="resultadoSection">
             <div class="score-circle" id="scoreCircle">
                 <span id="pontuacao">--</span>
             </div>
             
-            <div class="perfil-badge" id="perfilBadge">
-                Calculando...
+            <div class="perfil-badge" id="perfilBadge">Calculando...</div>
+            
+            <div class="resultado" id="resultado">
+                <h2 id="tituloResultado">Processando...</h2>
+                <div id="conteudoResultado"></div>
             </div>
-        </div>
-        
-        <div class="resultado" id="resultado">
-            <h2 id="tituloResultado">Processando suas respostas...</h2>
-            <div id="conteudoResultado">
-                <p>Aguarde um momento...</p>
+            
+            <div class="email-notice">
+                📧 <strong>Um relatório completo também foi enviado para seu email!</strong><br>
+                Verifique sua caixa de entrada.
             </div>
+            
+            <button class="back-btn" onclick="location.reload()">Fazer Novamente</button>
         </div>
-        
-        <div class="email-notice">
-            📧 <strong>Um relatório completo foi enviado para seu email!</strong><br>
-            Verifique sua caixa de entrada (e spam também).
-        </div>
-        
-        <!-- PERSONALIZE AQUI SEU CTA -->
-        <!-- <a href="https://seu-site.com" class="cta-button">Agende uma Consultoria Gratuita</a> -->
     </div>
 
     <script>
-        // Função para pegar parâmetros da URL
-        function getParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                r1: params.get('r1') || '',
-                r2: params.get('r2') || '',
-                r3: params.get('r3') || '',
-                r4: params.get('r4') || '',
-                r5: params.get('r5') || ''
-            };
+        const respostas = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
+        
+        // Gerenciar seleção de opções
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const pergunta = this.getAttribute('data-q');
+                const pontos = parseInt(this.getAttribute('data-p'));
+                
+                // Remove seleção anterior da mesma pergunta
+                document.querySelectorAll(`.option[data-q="${pergunta}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Adiciona seleção
+                this.classList.add('selected');
+                respostas[pergunta] = pontos;
+                
+                // Verifica se todas foram respondidas
+                verificarCompleto();
+            });
+        });
+        
+        function verificarCompleto() {
+            const todas = Object.values(respostas).every(r => r > 0);
+            document.getElementById('calcularBtn').disabled = !todas;
         }
         
-        // Função de cálculo de pontos
-        function calcularPontos(resposta, numPergunta) {
-            if (!resposta) return 0;
-            const resp = resposta.toLowerCase();
-            
-            if (numPergunta === 1) {
-                if (resp.includes('acompanha campanhas') || resp.includes('a)')) return 1;
-                if (resp.includes('temas variados') || resp.includes('b)')) return 2;
-                if (resp.includes('padrão e intenção') || resp.includes('c)')) return 3;
-                if (resp.includes('constância e estratégia') || resp.includes('d)')) return 4;
-            }
-            
-            if (numPergunta === 2) {
-                if (resp.includes('só quando tem campanha')) return 1;
-                if (resp.includes('1 vez por mês')) return 2;
-                if (resp.includes('1 vez por semana')) return 3;
-                if (resp.includes('2+') || resp.includes('consistência')) return 4;
-            }
-            
-            if (numPergunta === 3) {
-                if (resp.includes('quase inexistente')) return 1;
-                if (resp.includes('participação pontual')) return 2;
-                if (resp.includes('presença crescente')) return 3;
-                if (resp.includes('vozes ativas') || resp.includes('protagonismo')) return 4;
-            }
-            
-            if (numPergunta === 4) {
-                if (resp.includes('cada área fala')) return 1;
-                if (resp.includes('tentativa de alinhamento')) return 2;
-                if (resp.includes('discurso comum')) return 3;
-                if (resp.includes('narrativa unificada')) return 4;
-            }
-            
-            if (numPergunta === 5) {
-                if (resp.includes('parecidos com') || resp.includes('concorrente')) return 1;
-                if (resp.includes('esforço de diferenciação')) return 2;
-                if (resp.includes('originalidade em partes')) return 3;
-                if (resp.includes('percepção de valor') || resp.includes('antes da venda')) return 4;
-            }
-            
-            return 0;
-        }
+        // Calcular resultado
+        document.getElementById('calcularBtn').addEventListener('click', function() {
+            const pontuacao = Object.values(respostas).reduce((a, b) => a + b, 0);
+            mostrarResultado(pontuacao);
+        });
         
-        // Processa o diagnóstico
-        function processarDiagnostico() {
-            const respostas = getParams();
+        function mostrarResultado(pontuacao) {
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('resultadoSection').style.display = 'block';
             
-            // Calcula pontuação
-            let pontuacao = 0;
-            pontuacao += calcularPontos(respostas.r1, 1);
-            pontuacao += calcularPontos(respostas.r2, 2);
-            pontuacao += calcularPontos(respostas.r3, 3);
-            pontuacao += calcularPontos(respostas.r4, 4);
-            pontuacao += calcularPontos(respostas.r5, 5);
-            
-            // Define perfil
             let perfil, corPerfil, titulo, descricao, recomendacoes;
             
             if (pontuacao >= 5 && pontuacao <= 7) {
@@ -337,15 +423,8 @@
                     "Monitore KPIs de reputação e autoridade",
                     "Torne-se referência e líder de mercado"
                 ];
-            } else {
-                perfil = "Aguardando Revisão";
-                corPerfil = "eco-tatico";
-                titulo = "Processando...";
-                descricao = "Não conseguimos calcular seu resultado. Por favor, verifique o email enviado ou entre em contato.";
-                recomendacoes = [];
             }
             
-            // Atualiza a página
             document.getElementById('pontuacao').textContent = pontuacao;
             document.getElementById('scoreCircle').style.background = getGradient(corPerfil);
             document.getElementById('perfilBadge').textContent = perfil;
@@ -353,41 +432,33 @@
             document.getElementById('resultado').style.borderLeftColor = getBorderColor(corPerfil);
             document.getElementById('tituloResultado').textContent = titulo;
             
-            let conteudoHTML = '<p>' + descricao + '</p>';
+            let html = '<p>' + descricao + '</p>';
+            html += '<div class="recomendacoes"><h3>🎯 Recomendações Estratégicas:</h3><ul>';
+            recomendacoes.forEach(rec => html += '<li>' + rec + '</li>');
+            html += '</ul></div>';
             
-            if (recomendacoes.length > 0) {
-                conteudoHTML += '<div class="recomendacoes"><h3>🎯 Recomendações Estratégicas:</h3><ul>';
-                recomendacoes.forEach(rec => {
-                    conteudoHTML += '<li>' + rec + '</li>';
-                });
-                conteudoHTML += '</ul></div>';
-            }
-            
-            document.getElementById('conteudoResultado').innerHTML = conteudoHTML;
+            document.getElementById('conteudoResultado').innerHTML = html;
         }
         
         function getGradient(perfil) {
-            const gradients = {
+            const g = {
                 'eco-tatico': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                 'sinal-fragmentado': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
                 'narrador-emergente': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
                 'voz-referencia': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
             };
-            return gradients[perfil] || gradients['eco-tatico'];
+            return g[perfil];
         }
         
         function getBorderColor(perfil) {
-            const colors = {
+            const c = {
                 'eco-tatico': '#f5576c',
                 'sinal-fragmentado': '#00f2fe',
                 'narrador-emergente': '#38f9d7',
                 'voz-referencia': '#fee140'
             };
-            return colors[perfil] || colors['eco-tatico'];
+            return c[perfil];
         }
-        
-        // Executa ao carregar
-        window.addEventListener('load', processarDiagnostico);
     </script>
 </body>
 </html>
