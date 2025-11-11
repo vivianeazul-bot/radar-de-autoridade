@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seu Diagnóstico de Comunicação</title>
+    <title>Diagnóstico de Comunicação - Radar de Autoridade</title>
+    
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -15,19 +19,16 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
         
         .container {
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 700px;
-            width: 100%;
-            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 40px;
             animation: fadeIn 0.6s ease-out;
         }
         
@@ -38,23 +39,63 @@
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .header h1 {
             color: #2d3748;
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
         }
         
         .header p {
             color: #718096;
-            font-size: 16px;
+            font-size: 18px;
         }
         
-        /* Quiz */
-        .quiz-section {
+        /* Formulário */
+        .form-section {
             display: block;
+        }
+        
+        .dados-pessoais {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .dados-pessoais h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
         }
         
         .question {
@@ -101,28 +142,64 @@
             font-weight: 600;
         }
         
-        .calculate-btn {
+        .submit-btn {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
             transition: transform 0.3s ease;
         }
         
-        .calculate-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
-        .calculate-btn:disabled {
+        .submit-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+        
+        /* Loading */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 20px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* Resultado */
@@ -249,21 +326,46 @@
         }
         
         @media (max-width: 600px) {
-            .container { padding: 25px; }
-            .header h1 { font-size: 22px; }
+            .container { padding: 30px 20px; }
+            .header h1 { font-size: 24px; }
             .score-circle { width: 120px; height: 120px; font-size: 36px; }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3 style="color: #2d3748;">Processando seu diagnóstico...</h3>
+            <p style="color: #718096; margin-top: 10px;">Enviando email e calculando resultados</p>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="header">
-            <h1>🎯 Descubra Seu Perfil de Comunicação</h1>
-            <p>Responda as 5 perguntas abaixo para ver seu diagnóstico completo</p>
+            <h1>🎯 Radar de Autoridade</h1>
+            <p>Descubra seu perfil de comunicação em 5 perguntas</p>
         </div>
         
-        <!-- QUIZ SECTION -->
-        <div class="quiz-section" id="quizSection">
+        <!-- FORMULÁRIO -->
+        <div class="form-section" id="formSection">
+            <div class="dados-pessoais">
+                <h3>📋 Seus Dados</h3>
+                <div class="form-group">
+                    <label for="nome">Nome completo *</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" placeholder="(00) 00000-0000">
+                </div>
+            </div>
+            
             <div class="question">
                 <h3>1. Seu conteúdo hoje:</h3>
                 <div class="options">
@@ -314,10 +416,10 @@
                 </div>
             </div>
             
-            <button class="calculate-btn" id="calcularBtn" disabled>Calcular Meu Diagnóstico</button>
+            <button class="submit-btn" id="submitBtn" disabled>Ver Meu Diagnóstico</button>
         </div>
         
-        <!-- RESULTADO SECTION -->
+        <!-- RESULTADO -->
         <div class="resultado-section" id="resultadoSection">
             <div class="score-circle" id="scoreCircle">
                 <span id="pontuacao">--</span>
@@ -331,15 +433,23 @@
             </div>
             
             <div class="email-notice">
-                📧 <strong>Um relatório completo também foi enviado para seu email!</strong><br>
-                Verifique sua caixa de entrada.
+                📧 <strong>Um relatório completo foi enviado para <span id="emailEnviado"></span>!</strong><br>
+                Verifique sua caixa de entrada (e spam também).
             </div>
             
-            <button class="back-btn" onclick="location.reload()">Fazer Novamente</button>
+            <button class="back-btn" onclick="location.reload()">Fazer Novo Diagnóstico</button>
         </div>
     </div>
 
     <script>
+        // CONFIGURE AQUI SUAS CREDENCIAIS DO EMAILJS
+        const EMAILJS_PUBLIC_KEY = 'SUA_PUBLIC_KEY_AQUI';
+        const EMAILJS_SERVICE_ID = 'SEU_SERVICE_ID_AQUI';
+        const EMAILJS_TEMPLATE_ID = 'SEU_TEMPLATE_ID_AQUI';
+        
+        // Inicializa EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+        
         const respostas = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
         
         // Gerenciar seleção de opções
@@ -348,93 +458,139 @@
                 const pergunta = this.getAttribute('data-q');
                 const pontos = parseInt(this.getAttribute('data-p'));
                 
-                // Remove seleção anterior da mesma pergunta
                 document.querySelectorAll(`.option[data-q="${pergunta}"]`).forEach(opt => {
                     opt.classList.remove('selected');
                 });
                 
-                // Adiciona seleção
                 this.classList.add('selected');
                 respostas[pergunta] = pontos;
                 
-                // Verifica se todas foram respondidas
                 verificarCompleto();
             });
         });
         
         function verificarCompleto() {
-            const todas = Object.values(respostas).every(r => r > 0);
-            document.getElementById('calcularBtn').disabled = !todas;
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const todasRespostas = Object.values(respostas).every(r => r > 0);
+            
+            document.getElementById('submitBtn').disabled = !(nome && email && todasRespostas);
         }
         
-        // Calcular resultado
-        document.getElementById('calcularBtn').addEventListener('click', function() {
+        document.getElementById('nome').addEventListener('input', verificarCompleto);
+        document.getElementById('email').addEventListener('input', verificarCompleto);
+        
+        // Processar formulário
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
             const pontuacao = Object.values(respostas).reduce((a, b) => a + b, 0);
-            mostrarResultado(pontuacao);
+            
+            const resultado = obterResultado(pontuacao);
+            
+            // Mostra loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Envia email
+            try {
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    pontuacao: pontuacao,
+                    perfil: resultado.perfil,
+                    diagnostico: resultado.diagnosticoEmail,
+                    recomendacoes: resultado.recomendacoesEmail
+                });
+                
+                console.log('Email enviado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao enviar email:', error);
+            }
+            
+            // Esconde loading e mostra resultado
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                mostrarResultado(pontuacao, resultado, email);
+            }, 2000);
         });
         
-        function mostrarResultado(pontuacao) {
-            document.getElementById('quizSection').style.display = 'none';
-            document.getElementById('resultadoSection').style.display = 'block';
-            
-            let perfil, corPerfil, titulo, descricao, recomendacoes;
+        function obterResultado(pontuacao) {
+            let perfil, corPerfil, titulo, descricao, recomendacoes, diagnosticoEmail, recomendacoesEmail;
             
             if (pontuacao >= 5 && pontuacao <= 7) {
                 perfil = "Eco Tático";
                 corPerfil = "eco-tatico";
                 titulo = "Eco Tático - Estágio Inicial";
                 descricao = "Você está no estágio inicial da jornada de comunicação estratégica. Sua narrativa ainda está muito conectada a campanhas pontuais e falta uma linha editorial clara.";
+                diagnosticoEmail = "Você está no estágio inicial da jornada de comunicação estratégica. Sua narrativa ainda está muito conectada a campanhas pontuais e falta uma linha editorial clara que posicione sua marca de forma consistente.\n\nCaracterísticas do seu momento:\n• Conteúdo reativo e focado em vendas\n• Ausência de regularidade na comunicação\n• Baixa participação das lideranças\n• Desalinhamento entre áreas\n• Pouca diferenciação frente aos concorrentes";
                 recomendacoes = [
                     "Defina 3-5 pilares de conteúdo para sua comunicação",
                     "Estabeleça uma frequência mínima de publicação semanal",
                     "Crie um calendário editorial básico",
                     "Comece a construir uma voz de marca única"
                 ];
+                recomendacoesEmail = "1. Defina 3-5 pilares de conteúdo para sua comunicação\n2. Estabeleça uma frequência mínima de publicação semanal\n3. Crie um calendário editorial básico\n4. Comece a construir uma voz de marca única";
             } else if (pontuacao >= 8 && pontuacao <= 11) {
                 perfil = "Sinal Fragmentado";
                 corPerfil = "sinal-fragmentado";
                 titulo = "Sinal Fragmentado - Em Desenvolvimento";
                 descricao = "Você já produz conteúdo com alguma regularidade, mas ainda falta coesão e estratégia. Há esforço de comunicação, porém sem uma narrativa clara que una todas as frentes.";
+                diagnosticoEmail = "Você já produz conteúdo com alguma regularidade, mas ainda falta coesão e estratégia. Há esforço de comunicação, porém sem uma narrativa clara que una todas as frentes.\n\nCaracterísticas do seu momento:\n• Conteúdo acontece, mas sem clareza estratégica\n• Tentativas de regularidade, ainda inconsistentes\n• Lideranças participam pontualmente\n• Áreas tentam se alinhar, mas sem sucesso pleno\n• Diferenciação existe, mas não é percebida claramente";
                 recomendacoes = [
                     "Unifique o discurso entre todas as áreas",
                     "Engaje lideranças na comunicação estratégica",
                     "Estruture uma linha editorial consistente",
                     "Fortaleça sua diferenciação no mercado"
                 ];
+                recomendacoesEmail = "1. Unifique o discurso entre todas as áreas\n2. Engaje lideranças na comunicação estratégica\n3. Estruture uma linha editorial consistente\n4. Fortaleça sua diferenciação no mercado";
             } else if (pontuacao >= 12 && pontuacao <= 15) {
                 perfil = "Narrador Emergente";
                 corPerfil = "narrador-emergente";
                 titulo = "Narrador Emergente - Nível Avançado";
                 descricao = "Parabéns! Você já possui uma comunicação estruturada e estratégica. Sua narrativa começa a ter consistência e diferenciação, criando autoridade no mercado.";
+                diagnosticoEmail = "Parabéns! Você já possui uma comunicação estruturada e estratégica. Sua narrativa começa a ter consistência e diferenciação, criando autoridade no mercado.\n\nCaracterísticas do seu momento:\n• Conteúdo segue padrão e intenção estratégica\n• Regularidade semanal estabelecida\n• Lideranças com presença crescente e autoridade\n• Discurso comum em alguns canais-chave\n• Originalidade reconhecida em partes da narrativa";
                 recomendacoes = [
                     "Amplie a presença das lideranças como protagonistas",
                     "Fortaleça os diferenciais competitivos na narrativa",
                     "Expanda a narrativa unificada para todos os canais",
                     "Mensure o impacto da comunicação no negócio"
                 ];
+                recomendacoesEmail = "1. Amplie a presença das lideranças como protagonistas\n2. Fortaleça os diferenciais competitivos na narrativa\n3. Expanda a narrativa unificada para todos os canais\n4. Mensure o impacto da comunicação no negócio";
             } else if (pontuacao >= 16 && pontuacao <= 20) {
                 perfil = "Voz de Referência";
                 corPerfil = "voz-referencia";
                 titulo = "Voz de Referência - Excelência Editorial";
                 descricao = "Excelente! Você atingiu o nível máximo de maturidade editorial. Sua comunicação é estratégica, consistente e posiciona sua marca como autoridade. A percepção de valor acontece antes da venda.";
+                diagnosticoEmail = "Excelente! Você atingiu o nível máximo de maturidade editorial. Sua comunicação é estratégica, consistente e posiciona sua marca como autoridade. A percepção de valor acontece antes da venda.\n\nCaracterísticas do seu momento:\n• Posicionamento com constância e estratégia clara\n• Múltiplas publicações semanais com consistência\n• Lideranças como vozes ativas e protagonistas\n• Narrativa unificada entre todas as áreas estratégicas\n• Percepção de valor construída antes do processo comercial";
                 recomendacoes = [
                     "Mantenha a consistência e evolua constantemente",
                     "Explore novos formatos e canais estratégicos",
                     "Monitore KPIs de reputação e autoridade",
                     "Torne-se referência e líder de mercado"
                 ];
+                recomendacoesEmail = "1. Mantenha a consistência e evolua constantemente\n2. Explore novos formatos e canais estratégicos\n3. Monitore KPIs de reputação e autoridade\n4. Torne-se referência e líder de mercado";
             }
             
-            document.getElementById('pontuacao').textContent = pontuacao;
-            document.getElementById('scoreCircle').style.background = getGradient(corPerfil);
-            document.getElementById('perfilBadge').textContent = perfil;
-            document.getElementById('perfilBadge').className = 'perfil-badge ' + corPerfil;
-            document.getElementById('resultado').style.borderLeftColor = getBorderColor(corPerfil);
-            document.getElementById('tituloResultado').textContent = titulo;
+            return { perfil, corPerfil, titulo, descricao, recomendacoes, diagnosticoEmail, recomendacoesEmail };
+        }
+        
+        function mostrarResultado(pontuacao, resultado, email) {
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('resultadoSection').style.display = 'block';
             
-            let html = '<p>' + descricao + '</p>';
+            document.getElementById('pontuacao').textContent = pontuacao;
+            document.getElementById('scoreCircle').style.background = getGradient(resultado.corPerfil);
+            document.getElementById('perfilBadge').textContent = resultado.perfil;
+            document.getElementById('perfilBadge').className = 'perfil-badge ' + resultado.corPerfil;
+            document.getElementById('resultado').style.borderLeftColor = getBorderColor(resultado.corPerfil);
+            document.getElementById('tituloResultado').textContent = resultado.titulo;
+            document.getElementById('emailEnviado').textContent = email;
+            
+            let html = '<p>' + resultado.descricao + '</p>';
             html += '<div class="recomendacoes"><h3>🎯 Recomendações Estratégicas:</h3><ul>';
-            recomendacoes.forEach(rec => html += '<li>' + rec + '</li>');
+            resultado.recomendacoes.forEach(rec => html += '<li>' + rec + '</li>');
             html += '</ul></div>';
             
             document.getElementById('conteudoResultado').innerHTML = html;
