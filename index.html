@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radar de Autoridade</title>
+    <title>A Voz por Trás da Estratégia</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,7 +49,7 @@
             border-radius: 12px;
             border-left: 4px solid #667eea;
         }
-        .question h3 { color: #2d3748; font-size: 18px; margin-bottom: 15px; }
+        .question h3 { color: #2d3748; font-size: 18px; margin-bottom: 15px; line-height: 1.5; }
         .options { display: flex; flex-direction: column; gap: 10px; }
         .option {
             padding: 15px;
@@ -124,9 +124,9 @@
             color: white;
             margin: 20px 0;
         }
-        .eco-tatico { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .sinal-fragmentado { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .narrador-emergente { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .narradora-emergente { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .comunicadora-consciente { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .lider-narrativa { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         .voz-referencia { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
         .resultado {
             margin-top: 30px;
@@ -137,18 +137,29 @@
             text-align: left;
         }
         .resultado h2 { color: #2d3748; font-size: 24px; margin-bottom: 15px; }
+        .resultado h3 { color: #2d3748; font-size: 20px; margin: 20px 0 12px 0; }
         .resultado p { color: #4a5568; line-height: 1.8; margin-bottom: 12px; }
-        .recomendacoes { margin-top: 20px; }
-        .recomendacoes h3 { color: #2d3748; font-size: 20px; margin-bottom: 15px; }
-        .recomendacoes ul { list-style: none; padding: 0; }
-        .recomendacoes li { padding: 12px 0 12px 30px; position: relative; color: #4a5568; line-height: 1.6; }
-        .recomendacoes li::before {
-            content: "✓";
+        .resultado ul { list-style: none; padding: 0; margin: 15px 0; }
+        .resultado li { 
+            padding: 8px 0 8px 25px; 
+            position: relative; 
+            color: #4a5568; 
+            line-height: 1.6; 
+        }
+        .resultado li::before {
+            content: "•";
             position: absolute;
             left: 0;
-            color: #48bb78;
+            color: #667eea;
             font-weight: bold;
             font-size: 20px;
+        }
+        .ami-box {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
         }
         .email-notice {
             background: #edf2f7;
@@ -185,8 +196,8 @@
     
     <div class="container">
         <div class="header">
-            <h1>🎯 Radar de Autoridade</h1>
-            <p>Descubra seu perfil de comunicação</p>
+            <h1>🎯 A Voz por Trás da Estratégia</h1>
+            <p>Descubra seu perfil de comunicação em 2 minutos</p>
         </div>
         
         <div id="formSection">
@@ -207,52 +218,57 @@
             </div>
             
             <div class="question">
-                <h3>1. Seu conteúdo hoje:</h3>
+                <h3>1. Clareza de Essência</h3>
+                <p style="color: #718096; margin-bottom: 15px; font-size: 15px;">Quando você produz qualquer tipo de conteúdo com o objetivo de comunicar sua marca, o quanto sua mensagem expressa o que realmente te move — e não apenas o que o mercado espera ouvir?</p>
                 <div class="options">
-                    <div class="option" data-q="1" data-p="1">Acompanha campanhas de venda e só.</div>
-                    <div class="option" data-q="1" data-p="2">Traz temas variados, mas sem uma linha clara.</div>
-                    <div class="option" data-q="1" data-p="3">Começa a ter padrão e intenção.</div>
-                    <div class="option" data-q="1" data-p="4">Posiciona com constância e estratégia.</div>
+                    <div class="option" data-q="1" data-p="1">Falo sobre o que faço, sem trazer muito o "porquê".</div>
+                    <div class="option" data-q="1" data-p="2">Tento equilibrar essência e estratégia, mas às vezes me perco no discurso.</div>
+                    <div class="option" data-q="1" data-p="3">Consigo mostrar meus valores, mas ainda com medo de me expor totalmente.</div>
+                    <div class="option" data-q="1" data-p="4">Minha mensagem reflete com clareza o que me move e diferencia minha marca.</div>
                 </div>
             </div>
             
             <div class="question">
-                <h3>2. Frequência de conteúdo relevante:</h3>
+                <h3>2. Liderança Comunicadora</h3>
+                <p style="color: #718096; margin-bottom: 15px; font-size: 15px;">O quanto a sua comunicação inspira e mobiliza pessoas — e não apenas informa o que você faz?</p>
                 <div class="options">
-                    <div class="option" data-q="2" data-p="1">Só quando tem campanha.</div>
-                    <div class="option" data-q="2" data-p="2">1 vez por mês.</div>
-                    <div class="option" data-q="2" data-p="3">1 vez por semana.</div>
-                    <div class="option" data-q="2" data-p="4">2+ vezes por semana com consistência.</div>
+                    <div class="option" data-q="2" data-p="1">Costumo apenas informar resultados e entregas.</div>
+                    <div class="option" data-q="2" data-p="2">Às vezes inspiro, quando o tema me envolve emocionalmente.</div>
+                    <div class="option" data-q="2" data-p="3">Já reconheço o poder da minha voz e procuro usá-la para engajar.</div>
+                    <div class="option" data-q="2" data-p="4">Minha voz mobiliza ideias, pessoas e valores de forma natural.</div>
                 </div>
             </div>
             
             <div class="question">
-                <h3>3. Papel das lideranças na comunicação:</h3>
+                <h3>3. Ritual e Consistência Emocional</h3>
+                <p style="color: #718096; margin-bottom: 15px; font-size: 15px;">Como é o seu ritmo de comunicação ao longo das semanas?</p>
                 <div class="options">
-                    <div class="option" data-q="3" data-p="1">Quase inexistente.</div>
-                    <div class="option" data-q="3" data-p="2">Participação pontual.</div>
-                    <div class="option" data-q="3" data-p="3">Presença crescente com autoridade.</div>
-                    <div class="option" data-q="3" data-p="4">Vozes ativas, com protagonismo estratégico.</div>
+                    <div class="option" data-q="3" data-p="1">Publico quando dá, de forma espontânea e sem padrão.</div>
+                    <div class="option" data-q="3" data-p="2">Tenho fases de presença e fases de silêncio.</div>
+                    <div class="option" data-q="3" data-p="3">Estou construindo uma rotina e começo a perceber meu ritmo natural.</div>
+                    <div class="option" data-q="3" data-p="4">Tenho rituais e formatos que sustentam minha presença e energia.</div>
                 </div>
             </div>
             
             <div class="question">
-                <h3>4. Alinhamento entre áreas:</h3>
+                <h3>4. Inovação e Assinatura</h3>
+                <p style="color: #718096; margin-bottom: 15px; font-size: 15px;">O quanto a sua comunicação tem um estilo próprio, reconhecível, que traduz a sua visão de mundo?</p>
                 <div class="options">
-                    <div class="option" data-q="4" data-p="1">Cada área fala de um jeito.</div>
-                    <div class="option" data-q="4" data-p="2">Há tentativa de alinhamento, mas não é claro.</div>
-                    <div class="option" data-q="4" data-p="3">Temos um discurso comum em alguns canais.</div>
-                    <div class="option" data-q="4" data-p="4">Narrativa unificada entre áreas estratégicas.</div>
+                    <div class="option" data-q="4" data-p="1">Ainda sigo referências e tendências do meu mercado.</div>
+                    <div class="option" data-q="4" data-p="2">Misturo referências, mas minha assinatura ainda não é clara.</div>
+                    <div class="option" data-q="4" data-p="3">Tenho uma linha narrativa própria, mas às vezes me disperso.</div>
+                    <div class="option" data-q="4" data-p="4">Tenho uma estética e narrativa que as pessoas reconhecem como minha.</div>
                 </div>
             </div>
             
             <div class="question">
-                <h3>5. Diferenciação da narrativa:</h3>
+                <h3>5. Coerência entre Liderança e Comunicação</h3>
+                <p style="color: #718096; margin-bottom: 15px; font-size: 15px;">Se alguém conhecesse você apenas pelo que comunica, teria uma noção real de quem você é como líder?</p>
                 <div class="options">
-                    <div class="option" data-q="5" data-p="1">Somos parecidos com qualquer concorrente.</div>
-                    <div class="option" data-q="5" data-p="2">Há esforço de diferenciação, mas pouco percebido.</div>
-                    <div class="option" data-q="5" data-p="3">Nosso discurso tem originalidade em partes.</div>
-                    <div class="option" data-q="5" data-p="4">A percepção de valor já acontece antes da venda.</div>
+                    <div class="option" data-q="5" data-p="1">Provavelmente não — minha presença digital é diferente do meu estilo de liderança.</div>
+                    <div class="option" data-q="5" data-p="2">Em parte — algumas postagens refletem quem sou, mas nem sempre.</div>
+                    <div class="option" data-q="5" data-p="3">Em geral, minha comunicação expressa o mesmo tom que levo para o time.</div>
+                    <div class="option" data-q="5" data-p="4">Sim — minha liderança e minha presença comunicacional têm a mesma energia e propósito.</div>
                 </div>
             </div>
             
@@ -379,45 +395,73 @@
         });
         
         function getResultado(p) {
-            if (p >= 5 && p <= 7) {
+            if (p >= 5 && p <= 8) {
                 return {
-                    perfil: 'Eco Tático',
-                    cor: 'eco-tatico',
-                    titulo: 'Eco Tático - Estágio Inicial',
-                    desc: 'Você está no estágio inicial da jornada de comunicação estratégica.',
-                    recs: ['Defina pilares de conteúdo', 'Estabeleça frequência semanal', 'Crie calendário editorial', 'Construa voz de marca'],
-                    diagEmail: 'Estágio inicial. Narrativa conectada a campanhas pontuais.',
-                    recEmail: '1. Defina pilares\n2. Frequência semanal\n3. Calendário editorial\n4. Voz de marca'
+                    perfil: 'Narradora Emergente',
+                    cor: 'narradora-emergente',
+                    titulo: 'Narradora Emergente',
+                    leitura: 'Você tem propósito, sensibilidade e uma história potente — mas sua voz ainda aparece de forma pontual, muitas vezes reativa ou insegura. A comunicação existe, mas ainda não expressa toda a força da sua identidade. Seu desafio agora é transformar inspiração em ritmo e clareza narrativa.',
+                    sinais: [
+                        'Fala com emoção, mas sem frequência.',
+                        'Alterna entre empolgação e silêncio.',
+                        'Publica com medo de se expor demais.',
+                        'Ainda busca a "forma certa" de comunicar.'
+                    ],
+                    resumo: 'Você está despertando sua voz. O propósito já está aí. Só falta estruturar a presença.',
+                    ami: 'Escolha um tema que te move e fale sobre ele uma vez por semana, sem pensar no algoritmo — pense na coerência emocional.',
+                    diagEmail: 'Você tem propósito e sensibilidade, mas sua voz ainda aparece de forma pontual. Desafio: transformar inspiração em ritmo e clareza narrativa.',
+                    recEmail: 'AMI: Escolha um tema que te move e fale sobre ele uma vez por semana, sem pensar no algoritmo — pense na coerência emocional.'
                 };
-            } else if (p >= 8 && p <= 11) {
+            } else if (p >= 9 && p <= 12) {
                 return {
-                    perfil: 'Sinal Fragmentado',
-                    cor: 'sinal-fragmentado',
-                    titulo: 'Sinal Fragmentado - Em Desenvolvimento',
-                    desc: 'Você já produz conteúdo, mas ainda falta coesão e estratégia.',
-                    recs: ['Unifique o discurso', 'Engaje lideranças', 'Estruture linha editorial', 'Fortaleça diferenciação'],
-                    diagEmail: 'Conteúdo regular, mas sem coesão estratégica clara.',
-                    recEmail: '1. Unifique discurso\n2. Engaje lideranças\n3. Linha editorial\n4. Diferenciação'
+                    perfil: 'Comunicadora Consciente',
+                    cor: 'comunicadora-consciente',
+                    titulo: 'Comunicadora Consciente (em transição)',
+                    leitura: 'Você já tem voz e consciência, mas ainda busca equilíbrio entre autenticidade e estratégia. Sente o chamado de ser mais consistente, mas as demandas do dia a dia interrompem o fluxo. Falta ritual, não talento.',
+                    sinais: [
+                        'A comunicação já inspira e gera identificação.',
+                        'Tem clareza do propósito, mas não do processo.',
+                        'Alterna formatos e frequências.',
+                        'Tem boas ideias, mas falta organização para sustentar o ritmo.'
+                    ],
+                    resumo: 'Você já comunica com intenção. Agora é hora de transformar intenção em método.',
+                    ami: 'Crie um ritual editorial fixo: mesmo dia, mesmo formato, mesmo tom. Exemplos: Ritual de Expansão – insights semanais sobre crescimento e liderança. Sexta de Insight – provocações que unem dados, intuição e comportamento.',
+                    diagEmail: 'Você já tem voz e consciência, mas busca equilíbrio entre autenticidade e estratégia. Falta ritual, não talento.',
+                    recEmail: 'AMI: Crie um ritual editorial fixo: mesmo dia, mesmo formato, mesmo tom. Exemplos: Ritual de Expansão ou Sexta de Insight.'
                 };
-            } else if (p >= 12 && p <= 15) {
+            } else if (p >= 13 && p <= 16) {
                 return {
-                    perfil: 'Narrador Emergente',
-                    cor: 'narrador-emergente',
-                    titulo: 'Narrador Emergente - Nível Avançado',
-                    desc: 'Parabéns! Você possui comunicação estruturada e estratégica.',
-                    recs: ['Amplie lideranças', 'Fortaleça diferenciais', 'Expanda narrativa', 'Mensure impacto'],
-                    diagEmail: 'Comunicação estruturada com consistência e diferenciação.',
-                    recEmail: '1. Amplie lideranças\n2. Diferenciais fortes\n3. Expanda narrativa\n4. Mensure impacto'
+                    perfil: 'Líder Narrativa',
+                    cor: 'lider-narrativa',
+                    titulo: 'Líder Narrativa (consolidando presença)',
+                    leitura: 'Sua comunicação é coerente, sensível e inspiradora. Você domina o tom e a intenção, mas pode refinar a assinatura e ampliar a influência. Seu desafio é sair do nível de performance pessoal para o nível de cultura comunicacional.',
+                    sinais: [
+                        'Fala com verdade e propósito.',
+                        'Já reconhece a própria estética verbal.',
+                        'Mantém presença constante, mas ainda pouco estratégica.',
+                        'Quer expandir a narrativa sem perder autenticidade.'
+                    ],
+                    resumo: 'Você comunica com propósito. Agora, o próximo passo é comunicar com sistema.',
+                    ami: 'Defina três pilares narrativos que sustentam sua voz (por exemplo: visão de futuro, valor central, transformação oferecida). Use-os como bússola para toda criação.',
+                    diagEmail: 'Comunicação coerente, sensível e inspiradora. Desafio: sair do nível de performance pessoal para cultura comunicacional.',
+                    recEmail: 'AMI: Defina três pilares narrativos que sustentam sua voz (visão de futuro, valor central, transformação oferecida).'
                 };
             } else {
                 return {
                     perfil: 'Voz de Referência',
                     cor: 'voz-referencia',
-                    titulo: 'Voz de Referência - Excelência',
-                    desc: 'Excelente! Nível máximo de maturidade editorial.',
-                    recs: ['Mantenha consistência', 'Explore novos formatos', 'Monitore KPIs', 'Lidere mercado'],
-                    diagEmail: 'Excelência editorial. Autoridade consolidada no mercado.',
-                    recEmail: '1. Consistência\n2. Novos formatos\n3. KPIs\n4. Liderança'
+                    titulo: 'Voz de Referência (liderança de influência)',
+                    leitura: 'Você já opera em nível de influência consciente. Sua narrativa é clara, estruturada e simbólica — ela forma cultura, mobiliza pessoas e traduz propósito. Agora, o jogo é manter a coerência na expansão e transformar a comunicação em legado.',
+                    sinais: [
+                        'Voz reconhecida e respeitada.',
+                        'Produção simbólica e estratégica.',
+                        'Inspira outros líderes.',
+                        'Cria narrativas que sustentam cultura e pertencimento.'
+                    ],
+                    resumo: 'Você já é referência. Agora, o foco é transformar influência em legado.',
+                    ami: 'Documente sua metodologia e compartilhe bastidores. Ensinar o próprio processo é o próximo passo da liderança de influência.',
+                    diagEmail: 'Influência consciente. Narrativa clara, estruturada e simbólica — forma cultura, mobiliza pessoas e traduz propósito.',
+                    recEmail: 'AMI: Documente sua metodologia e compartilhe bastidores. Ensinar o próprio processo é o próximo passo da liderança.'
                 };
             }
         }
@@ -432,17 +476,28 @@
             document.getElementById('resultado').style.borderLeftColor = getCor(r.cor);
             document.getElementById('tituloResultado').textContent = r.titulo;
             document.getElementById('emailEnviado').textContent = e;
-            var html = '<p>' + r.desc + '</p><div class="recomendacoes"><h3>🎯 Recomendações:</h3><ul>';
-            r.recs.forEach(function(rec) { html += '<li>' + rec + '</li>'; });
-            html += '</ul></div>';
+            
+            var html = '<h3>📖 Leitura comportamental:</h3>';
+            html += '<p>' + r.leitura + '</p>';
+            
+            html += '<h3>🔍 Sinais típicos:</h3><ul>';
+            r.sinais.forEach(function(sinal) { html += '<li>' + sinal + '</li>'; });
+            html += '</ul>';
+            
+            html += '<h3>💡 Resumindo:</h3>';
+            html += '<p>' + r.resumo + '</p>';
+            
+            html += '<div class="ami-box"><h3>🎯 AMI – Ação Minúscula Inicial:</h3>';
+            html += '<p>' + r.ami + '</p></div>';
+            
             document.getElementById('conteudoResultado').innerHTML = html;
         }
         
         function getGrad(c) {
             var g = {
-                'eco-tatico': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'sinal-fragmentado': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'narrador-emergente': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'narradora-emergente': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'comunicadora-consciente': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'lider-narrativa': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
                 'voz-referencia': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
             };
             return g[c];
@@ -450,9 +505,9 @@
         
         function getCor(c) {
             var cores = {
-                'eco-tatico': '#f5576c',
-                'sinal-fragmentado': '#00f2fe',
-                'narrador-emergente': '#38f9d7',
+                'narradora-emergente': '#f5576c',
+                'comunicadora-consciente': '#00f2fe',
+                'lider-narrativa': '#38f9d7',
                 'voz-referencia': '#fee140'
             };
             return cores[c];
