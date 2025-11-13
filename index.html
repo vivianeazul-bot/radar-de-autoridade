@@ -376,8 +376,7 @@
                     telefone: telefone,
                     pontuacao: pontos,
                     perfil: r.perfil,
-                    diagnostico: r.diagEmail,
-                    recomendacoes: r.recEmail
+                    diagnostico: r.diagEmail
                 });
                 console.log('Email enviado!');
                 
@@ -395,7 +394,7 @@
         });
         
         function getResultado(p) {
-            if (p >= 5 && p <= 8) {
+            if (p >= 5 && p <= 9) {
                 return {
                     perfil: 'Narradora Emergente',
                     cor: 'narradora-emergente',
@@ -409,10 +408,10 @@
                     ],
                     resumo: 'Você está despertando sua voz. O propósito já está aí. Só falta estruturar a presença.',
                     ami: 'Escolha um tema que te move e fale sobre ele uma vez por semana, sem pensar no algoritmo — pense na coerência emocional.',
-                    diagEmail: 'Você tem propósito e sensibilidade, mas sua voz ainda aparece de forma pontual. Desafio: transformar inspiração em ritmo e clareza narrativa.',
-                    recEmail: 'AMI: Escolha um tema que te move e fale sobre ele uma vez por semana, sem pensar no algoritmo — pense na coerência emocional.'
+                    diagEmail: 'LEITURA COMPORTAMENTAL:\nVocê tem propósito, sensibilidade e uma história potente — mas sua voz ainda aparece de forma pontual, muitas vezes reativa ou insegura. A comunicação existe, mas ainda não expressa toda a força da sua identidade. Seu desafio agora é transformar inspiração em ritmo e clareza narrativa.\n\nSINAIS TÍPICOS:\n• Fala com emoção, mas sem frequência.\n• Alterna entre empolgação e silêncio.\n• Publica com medo de se expor demais.\n• Ainda busca a "forma certa" de comunicar.\n\nRESUMINDO:\nVocê está despertando sua voz. O propósito já está aí. Só falta estruturar a presença.\n\nAMI – AÇÃO MINÚSCULA INICIAL:\nEscolha um tema que te move e fale sobre ele uma vez por semana, sem pensar no algoritmo — pense na coerência emocional.',
+                    recEmail: ''
                 };
-            } else if (p >= 9 && p <= 12) {
+            } else if (p >= 10 && p <= 14) {
                 return {
                     perfil: 'Comunicadora Consciente',
                     cor: 'comunicadora-consciente',
@@ -426,14 +425,14 @@
                     ],
                     resumo: 'Você já comunica com intenção. Agora é hora de transformar intenção em método.',
                     ami: 'Crie um ritual editorial fixo: mesmo dia, mesmo formato, mesmo tom. Exemplos: Ritual de Expansão – insights semanais sobre crescimento e liderança. Sexta de Insight – provocações que unem dados, intuição e comportamento.',
-                    diagEmail: 'Você já tem voz e consciência, mas busca equilíbrio entre autenticidade e estratégia. Falta ritual, não talento.',
-                    recEmail: 'AMI: Crie um ritual editorial fixo: mesmo dia, mesmo formato, mesmo tom. Exemplos: Ritual de Expansão ou Sexta de Insight.'
+                    diagEmail: 'LEITURA COMPORTAMENTAL:\nVocê já tem voz e consciência, mas ainda busca equilíbrio entre autenticidade e estratégia. Sente o chamado de ser mais consistente, mas as demandas do dia a dia interrompem o fluxo. Falta ritual, não talento.\n\nSINAIS TÍPICOS:\n• A comunicação já inspira e gera identificação.\n• Tem clareza do propósito, mas não do processo.\n• Alterna formatos e frequências.\n• Tem boas ideias, mas falta organização para sustentar o ritmo.\n\nRESUMINDO:\nVocê já comunica com intenção. Agora é hora de transformar intenção em método.\n\nAMI – AÇÃO MINÚSCULA INICIAL:\nCrie um ritual editorial fixo: mesmo dia, mesmo formato, mesmo tom. Exemplos: Ritual de Expansão – insights semanais sobre crescimento e liderança. Sexta de Insight – provocações que unem dados, intuição e comportamento.',
+                    recEmail: ''
                 };
-            } else if (p >= 13 && p <= 16) {
+            } else if (p >= 15 && p <= 20) {
                 return {
                     perfil: 'Líder Narrativa',
                     cor: 'lider-narrativa',
-                    titulo: 'Líder Narrativa (consolidando presença)',
+                    titulo: 'Líder Narrativa',
                     leitura: 'Sua comunicação é coerente, sensível e inspiradora. Você domina o tom e a intenção, mas pode refinar a assinatura e ampliar a influência. Seu desafio é sair do nível de performance pessoal para o nível de cultura comunicacional.',
                     sinais: [
                         'Fala com verdade e propósito.',
@@ -443,25 +442,8 @@
                     ],
                     resumo: 'Você comunica com propósito. Agora, o próximo passo é comunicar com sistema.',
                     ami: 'Defina três pilares narrativos que sustentam sua voz (por exemplo: visão de futuro, valor central, transformação oferecida). Use-os como bússola para toda criação.',
-                    diagEmail: 'Comunicação coerente, sensível e inspiradora. Desafio: sair do nível de performance pessoal para cultura comunicacional.',
-                    recEmail: 'AMI: Defina três pilares narrativos que sustentam sua voz (visão de futuro, valor central, transformação oferecida).'
-                };
-            } else {
-                return {
-                    perfil: 'Voz de Referência',
-                    cor: 'voz-referencia',
-                    titulo: 'Voz de Referência (liderança de influência)',
-                    leitura: 'Você já opera em nível de influência consciente. Sua narrativa é clara, estruturada e simbólica — ela forma cultura, mobiliza pessoas e traduz propósito. Agora, o jogo é manter a coerência na expansão e transformar a comunicação em legado.',
-                    sinais: [
-                        'Voz reconhecida e respeitada.',
-                        'Produção simbólica e estratégica.',
-                        'Inspira outros líderes.',
-                        'Cria narrativas que sustentam cultura e pertencimento.'
-                    ],
-                    resumo: 'Você já é referência. Agora, o foco é transformar influência em legado.',
-                    ami: 'Documente sua metodologia e compartilhe bastidores. Ensinar o próprio processo é o próximo passo da liderança de influência.',
-                    diagEmail: 'Influência consciente. Narrativa clara, estruturada e simbólica — forma cultura, mobiliza pessoas e traduz propósito.',
-                    recEmail: 'AMI: Documente sua metodologia e compartilhe bastidores. Ensinar o próprio processo é o próximo passo da liderança.'
+                    diagEmail: 'LEITURA COMPORTAMENTAL:\nSua comunicação é coerente, sensível e inspiradora. Você domina o tom e a intenção, mas pode refinar a assinatura e ampliar a influência. Seu desafio é sair do nível de performance pessoal para o nível de cultura comunicacional.\n\nSINAIS TÍPICOS:\n• Fala com verdade e propósito.\n• Já reconhece a própria estética verbal.\n• Mantém presença constante, mas ainda pouco estratégica.\n• Quer expandir a narrativa sem perder autenticidade.\n\nRESUMINDO:\nVocê comunica com propósito. Agora, o próximo passo é comunicar com sistema.\n\nAMI – AÇÃO MINÚSCULA INICIAL:\nDefina três pilares narrativos que sustentam sua voz (por exemplo: visão de futuro, valor central, transformação oferecida). Use-os como bússola para toda criação.',
+                    recEmail: ''
                 };
             }
         }
